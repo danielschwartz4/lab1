@@ -51,7 +51,7 @@ replace the `failwith` expression below with the integer `42`, so that
 you submit, the Exercise 2 unit test should then pass.
 ......................................................................*)
 
-let exercise2 () = failwith "exercise2 not implemented" ;;
+let exercise2 () = 42;;
 
 (* From here on, you'll want to test your lab solutions locally before
 submitting them at the end of lab to Gradescope. A simple way to do that
@@ -108,7 +108,7 @@ appropriate OCaml expression to assign the value to the variable
 `exercise3` below.
 ......................................................................*)
 
-let exercise3 () = failwith "exercise3 not implemented" ;;
+let exercise3 () = ~-(5-3);;
 
 (* Hint: The OCaml concrete expression `~- 5 - 3` does *not*
 correspond to the abstract syntax above.
@@ -118,6 +118,14 @@ Exercise 4: Draw the tree that the concrete syntax `~- 5 - 3` does
 correspond to. Check it with a member of the course staff.
 ......................................................................*)
 
+   -
+   ^
+  /  \
+ /    \
+~-     3
+|
+|
+5
 
 (*......................................................................
 Exercise 5: Associativity plays a role in cases when two operators
@@ -139,8 +147,11 @@ evaluates to two different results dependent on the associativity of
 the operator. Use this expression to determine the associativity of
 the operator. Check your answer with a member of the course staff if
 you'd like.
+
+1 - 2 - 3
+1 - 0 - 2
 ......................................................................*)
-  
+
 (*======================================================================
 Part 2: Types and type inference
 
@@ -151,25 +162,24 @@ expressions below? Test your solution by uncommenting the examples
 typing error is generated.
 ......................................................................*)
 
-(*  <--- After you've replaced the ???s, remove this start of comment line
 
-let exercise6a : ??? = 42 ;;
+let exercise6a : int = 42 ;;
 
-let exercise6b : ??? =
+let exercise6b : string =
   let greet y = "Hello " ^ y
   in greet "World!";;
 
-let exercise6c : ??? =
+let exercise6c : float -> float =
   fun x -> x +. 11.1 ;;
 
-let exercise6d : ??? =
+let exercise6d : int -> bool =
   fun x -> x < x + 1 ;;
 
-let exercise6e : ??? =
+let exercise6e : int -> float -> int =
   fun x -> fun y -> x + int_of_float y ;;
 
-and remove this whole end of comment line too. ---->  *)
-	
+
+
 (*======================================================================
 Part 3: First-order functional programming
 
@@ -200,9 +210,9 @@ testing.
 ......................................................................*)
 
 let square (x : int) : int  =
-  failwith "square not implemented" ;;
+  x * x ;;
 
-let exercise7 = 0 ;;
+let exercise7 = square(5) ;;
 
 (*......................................................................
 Exercise 8: Define a function, `exclaim`, that, given a string, "exclaims"
@@ -219,7 +229,8 @@ get the following behavior:
 ......................................................................*)
 
 let exclaim (text : string) : string =
-  failwith "exclaim not implemented";;
+  String.capitalize(text) ^ "!";;
+
 
 (*......................................................................
 Exercise 9: Define a function, `small_bills`, that determines, given a
@@ -238,7 +249,9 @@ non-negative.
 ......................................................................*)
 
 let small_bills (price : int) : bool =
-  failwith "small_bills not implemented" ;;
+  if price mod 20 != 0 then true
+  else false;;
+
 
 (*......................................................................
 Exercise 10:
@@ -256,7 +269,7 @@ Write two functions that, given a year, calculate the month
 (`computus_month`) and day (`computus_day`) of Easter in that year via
 the Computus function.
 
-In 2018, Easter took place on April 1st. Your functions should reflect 
+In 2018, Easter took place on April 1st. Your functions should reflect
 that:
 
    # computus_month 2018;;
@@ -301,7 +314,7 @@ frustrum with radii 3 and 4 and height 4 -- and you get
 
 which is (more or less) the right answer. Nonetheless, you have a
 strong sense that the code can be considerably improved. *)
-  
+
 (*......................................................................
 Exercise 11: Go over the code with your lab partner, making whatever
 modifications you think can improve the code, placing your revised
