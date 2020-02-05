@@ -290,7 +290,7 @@ let computus_month (y : int) : int =
   let i = c / 4 in
   let k = c mod 4 in
   let l = (32 + 2 * e + 2 * i - h - k) mod 7 in
-  let m = (a + 11 * h + 22 * l) /451) in
+  let m = ((a + 11 * h + 22 * l) /451) in
   (h + l - 7 * m + 114 ) / 31 ;;
 
 let computus_day (y : int) : int =
@@ -305,7 +305,7 @@ let computus_day (y : int) : int =
   let i = c / 4 in
   let k = c mod 4 in
   let l = (32 + 2 * e + 2 * i - h - k) mod 7 in
-  let m = (a + 11 * h + 22 * l) /451) in
+  let m = ((a + 11 * h + 22 * l) /451) in
   ((h + l - 7 * m + 114) mod 31 )+  1 ;;
 
 
@@ -351,6 +351,14 @@ revised code together.
 
 (*** Place your revised version here. ***)
 
+let frustrum_volume a b c =
+  let a =
+    let s a = a * a in
+    let h = b in
+    3.1416 *. h /. float_of_int 3 *. (a *. a +. c  *. c +. a *. c) in
+    a
+;;
+
 (* During the code review, your boss drops by and looks over
 your proposed code. Your boss thinks that the function should be
 compatible with the header line given at
@@ -363,6 +371,12 @@ line given at <https://url.cs51.io/frustrum>.
 
 (*** Place your updated revised version below, not as a comment,
      because we'll be unit testing it. ***)
+
+let frustrum_volume (radius1 : float) (radius2 : float) (height : float) : float =
+    let height = height in
+    3.1416 *. height /. float_of_int 3 *.
+    (radius1 *. radius1 +. radius2 *. radius2 +. radius1 *. radius2);;
+  ;;
 (*======================================================================
 Part 5: Utilizing recursion
 
@@ -382,8 +396,9 @@ For example,
    - : int = 1
 ......................................................................*)
 
-let factorial (x : int) : int =
-  failwith "factorial not implementated" ;;
+let rec factorial (x : int) : int =
+  if x = 0 then 1
+  else x * factorial (x - 1)
 
 (*......................................................................
 Exercise 14: Define a recursive function `sum_from_zero` that sums all
@@ -401,5 +416,7 @@ the mathematician Carl Freiedrich Gauss as a seven-year-old, *in his
 head*!)
 ......................................................................*)
 
-let sum_from_zero (x : int) : int =
-  failwith "sum_from_zero not implemented" ;;
+let rec sum_from_zero (x : int) : int =
+  if x = 0 then 0
+  else if x > 0 then x + sum_from_zero (x - 1)
+  else x + sum_from_zero (x + 1);;
